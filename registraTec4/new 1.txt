@@ -1,0 +1,42 @@
+	%>
+<script language = javascript>
+	alert("<%= mensaje%>");
+</script>
+<html>
+   <head>
+   	  <title>RegistraTEC</title>
+   </head>
+   <body>
+		<h1>RegistraTEC</h1>
+		<h2>Bienvenido!</h2>
+		<h2>Para registrarte a un evento, por favor inicia sesion o crea una cuenta. </h2>
+		<form action="registraTec.jsp"  method="post">
+   	   	    Usuario/matricula:				<input type="text" name="user"  id = "user" value=""><br/>
+   	   		Contrasena:		<input type="password" name="password" id = "password" value=""><br/>
+			<!--BEANS:	<input type="submit" name="bCapturar"        value="Capturar Datos">
+   	   					<input type="submit" name="bConsultar"       value="Consultar Clientes"><br/></br>-->
+						
+   	   		<input type="submit" name="bIniciarSesion"   id="bIniciarSesion"    value="Iniciar Sesion">
+			<input type="submit" name="bRegistrarme"   id="bRegistrarme"    value="Registrarme!"><br/>
+		</form>
+	</body>
+</html>
+
+<%	
+
+
+<!--</br>
+			Id Evento:					<input type="text" name="user"  id = "user" value="<%= elementos[0]%>" readonly><br/>
+   	   	    Id Admin:					<input type="text" name="name"  id = "name" value="<%= elementos[1]%>" readonly><br/>
+   	   	    Id Depto:					<input type="text" name="mail"  id = "mail" value="<%= elementos[2]%>" readonly><br/>
+   	   		Nombre Evento:			<input type="text" name="password" id = "password" value="<%= elementos[3]%>" readonly><br/>
+   	   	    Nombre Departamento:	<input type="text" name="phone"  id = "phone" value="<%= elementos[4]%>" readonly><br/>
+			Fecha Inicio:				<input type="text" name="address"  id = "address" value="<%= elementos[5]%>" readonly><br/>
+   	   	    Fecha Termino:			<input type="text" name="fecha"  id = "fecha" value="<%= elementos[6]%>" readonly><br/>
+   	   	    Status:						<input type="text" name="programa"  id = "programa" value="<%= elementos[7]%>" readonly><br/>
+   	   	    Cap Max:					<input type="text" name="semestre"  id = "semestre" value="<%= elementos[8]%>" readonly><br/>
+   	   	    Cap Actual:				<input type="text" name="escuela"  id = "escuela" value="<%= elementos[9]%>" readonly><br/>
+   	   	    Carta:						<input type="text" name="escuela"  id = "escuela" value="<%= elementos[12]%>" readonly><br/>
+   	   	    Requisitos:					<input type="text" name="escuela"  id = "escuela" value="<%= elementos[13]%>" readonly><br/>
+   	   	    Id Lugar:					<input type="text" name="escuela"  id = "escuela" value="<%= elementos[14]%>" readonly><br/>
+<a href='registroEvento.jsp?idEvento=<%=elementos[0]%>&nombreEvento=<%= elementos[3]%>'><button>Registrarme</button></a>-->

@@ -1,0 +1,75 @@
+<script language = javascript>
+	function checkRegistration() {
+		var inputs = form.getElementsByTagName('input');
+		var valid = true;
+		for (var i = 0; i < inputs.length; i++) {
+			if(inputs[i].value == ""){
+				alert("Favor de llenar todos los campos...");
+				valid = false
+				break;
+			}       
+		}		
+		return valid; 		
+	}
+</script>
+<html>
+   <head>
+		<title>RegistraTEC</title>
+		<!--<link href="rT.css" rel="stylesheet" type="text/css">-->
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+        <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+        <!--Scripts imported to manipulate the styles-->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+   </head>
+   <body>
+		<div class="row">
+			<div class="card-panel blue darken-2">
+				<h1 class="center-align text-darken-2">RegistraTEC</h1>
+				<h5 class="center-align">Ingresa tus datos, y los de un tutor para registrarte en el sistema</h5>
+			</div>
+			
+			<form id = "form" action="Controller/registraTec.jsp"  onsubmit="return checkRegistration()" method="post">
+				<div class="container">
+					<table class="striped">			
+						<tr>
+							<td>Usuario/matricula:</td>					<td><input type="text" name="idAlumno"  id = "idAlumno" value=""></td>
+							<td>Nombre:</td>								<td><input type="text" name="nombre"  id = "nombre" value=""></td>
+						</tr>
+						<tr>
+							<td>E-mail:</td>									<td><input type="email" name="email"  id = "email" value=""> </td>
+							<td>Contrasena:</td>							<td><input type="password" name="contrasena" id = "contrasena" value=""> </td>
+						</tr>
+						<tr><td> Telefono:	</td>	<td>			<input type="text" name="telefono"  id = "telefono" value=""> </td>
+						<td>Direccion:		</td>	<td>		<input type="text" name="direccion"  id = "direccion" value=""> </td></tr>
+						<tr><td>Fecha Nacimiento:</td>	<td>	<input type="text" name="fechaNacimiento"  id = "fechaNacimiento" value=""> </td>
+						<td>Programa:		</td>	<td>		<input type="text" name="programa"  id = "programa" value=""> </td></tr>
+						<tr><td>Semestre:	</td>	<td>			<input type="text" name="semestre"  id = "semestre" value=""></td>
+						<td>id Escuela:	</td>	<td>				<input type="text" name="idEscuela"  id = "idEscuela" value=""></td></tr>
+					</table>
+						<br/> <br/>
+						<h4>Datos tutor:</h4>
+					<table class="striped">			 
+						<tr><td>  Nombre:</td>	<td>			<input type="text" name="nombreTut"  id = "nombreTut" value=""> </td>
+						<td> E-mail:				</td>	<td>	<input type="email" name="emailTut"  id = "emailTut" value=""> </td></tr>
+				
+						<tr><td> Telefono:	</td>	<td>			<input type="text" name="telefonoTut"  id = "telefonoTut" value=""> </td>
+						<td>Direccion:		</td>	<td>		<input type="text" name="direccionTut"  id = "direccionTut" value=""> </td></tr>
+						
+						<tr><td> Fecha Nacimiento:</td>	<td>	<input type="text" name="fechaNacimientoTut"  id = "fechaNacimientoTut" value=""> </td>
+						<td>Parentezco:		</td>	<td>		<input type="text" name="parentezco"  id = "parentezco" value=""> </td></tr>
+					</table>
+					<br/> <br/>
+					
+					<div class="col s12" >
+						<div class="col s2 offset-s4 white"><div class="center-align"><input type="submit" name="bRegistrarAlumnoSistema"   id="bRegistrarAlumnoSistema"    value="Registrarme!"  class="btn waves-effect  blue darken-4"></div></div>
+						<div class="col s2 offset-s5white"><div class="center-align"><a href= "registraTec.html"><button class="btn waves-effect  blue darken-4">Cancelar</button></a> </div></div>
+					</div>
+		
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

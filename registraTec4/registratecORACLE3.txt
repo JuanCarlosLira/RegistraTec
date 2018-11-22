@@ -1,0 +1,353 @@
+/*
+Created		10/19/2017
+Modified		11/11/2017
+Project		REGISTRATEC
+Model		
+Company		
+Author		ESTEBAN
+Version		3.0
+Database		Oracle 10g 
+*/
+
+
+Drop table "TUTOR"
+/
+Drop table "LISTA_PONENTES"
+/
+Drop table "PONENTE"
+/
+Drop table "REGISTRO_ACOMPANANTE"
+/
+Drop table "REGISTRO_ALUMNO"
+/
+Drop table "ACOMPANANTE"
+/
+Drop table "EVENTO"
+/
+Drop table "LUGAR"
+/
+Drop table "GUARDIA"
+/
+Drop table "ALUMNO"
+/
+Drop table "ESCUELA"
+/
+Drop table "ADMINISTRADOR"
+/
+Drop table "DEPARTAMENTO"
+/
+
+Drop sequence "SEQ_TUTOR"
+/
+Drop sequence "SEQ_PONENTE"
+/
+Drop sequence "SEQ_REGISTRO"
+/
+Drop sequence "SEQ_ACOMPANANTE"
+/
+Drop sequence "SEQ_EVENTO"
+/
+Drop sequence "SEQ_LUGAR"
+/
+Drop sequence "SEQ_GUARDIA"
+/
+Drop sequence "SEQ_ESCUELA"
+/
+Drop sequence "SEQ_ADMINISTRADOR"
+/
+Drop sequence "SEQ_DEPARTAMENTO"
+/
+
+-- Create Sequence section
+
+CREATE SEQUENCE seq_evento
+  MINVALUE 1
+  START WITH 1
+  INCREMENT BY 1
+  NOCACHE;
+
+CREATE SEQUENCE seq_administrador
+  MINVALUE 1
+  START WITH 1
+  INCREMENT BY 1
+  NOCACHE;
+
+CREATE SEQUENCE seq_ponente
+  MINVALUE 1
+  START WITH 1
+  INCREMENT BY 1
+  NOCACHE;
+
+CREATE SEQUENCE seq_tutor
+  MINVALUE 1
+  START WITH 1
+  INCREMENT BY 1
+  NOCACHE;
+
+CREATE SEQUENCE seq_acompanante
+  MINVALUE 1
+  START WITH 1
+  INCREMENT BY 1
+  NOCACHE;
+
+CREATE SEQUENCE seq_guardia
+  MINVALUE 1
+  START WITH 1
+  INCREMENT BY 1
+  NOCACHE;
+
+CREATE SEQUENCE seq_lugar
+  MINVALUE 1
+  START WITH 1
+  INCREMENT BY 1
+  NOCACHE;
+
+CREATE SEQUENCE seq_departamento
+  MINVALUE 1
+  START WITH 1
+  INCREMENT BY 1
+  NOCACHE;
+
+CREATE SEQUENCE seq_escuela
+  MINVALUE 1
+  START WITH 1
+  INCREMENT BY 1
+  NOCACHE;
+
+CREATE SEQUENCE seq_registro
+  MINVALUE 1
+  START WITH 1
+  INCREMENT BY 1
+  NOCACHE;
+
+
+-- Create Tables section
+
+
+Create table ALUMNO (
+	id_alumno Varchar2 (15) NOT NULL ,
+	nombre Varchar2 (30) NOT NULL ,
+	contrasena Varchar2 (30) NOT NULL ,
+	direccion Varchar2 (70) NOT NULL ,
+	telefono Varchar2 (15) NOT NULL ,
+	email Varchar2 (40) NOT NULL ,
+	fecha_nacimiento Date,
+	programa Varchar2 (3) NOT NULL ,
+	semestre Number(2,0) NOT NULL ,
+	id_escuela Varchar2 (15) NOT NULL ,
+primary key (id_alumno,id_escuela) 
+) 
+/
+
+Create table REGISTRO_ALUMNO (
+	Id_registro Varchar2 (15) NOT NULL ,
+	id_alumno Varchar2 (15) NOT NULL ,
+	id_guardia Varchar2 (15),
+	id_escuela Varchar2 (15) NOT NULL ,
+	id_evento Varchar2 (15) NOT NULL ,
+	fecha_registro Date NOT NULL ,
+	asistencia Varchar2 (2),
+	fecha_asistencia Date,
+	extras Varchar2 (50),
+primary key (Id_registro,id_evento) 
+) 
+/
+
+Create table ESCUELA (
+	id_escuela Varchar2 (15) NOT NULL ,
+	nombre Varchar2 (30) NOT NULL ,
+	direccion Varchar2 (70) NOT NULL ,
+	telefono Varchar2 (15) NOT NULL ,
+primary key (id_escuela) 
+) 
+/
+
+Create table EVENTO (
+	id_evento Varchar2 (15) NOT NULL ,
+	id_administrador Varchar2 (15) NOT NULL ,
+	id_departamento Varchar2 (15) NOT NULL ,
+	nombre Varchar2 (30) NOT NULL ,
+	fecha_inicio_evento Date NOT NULL ,
+	fecha_termino_evento Date,
+	status_evento Varchar2 (10),
+	capacidad_maxima Number(3,0),
+	capacidad_actual Number(3,0),
+	fecha_inicio_registro Date,
+	fecha_termino_registro Date,
+	carta Long,
+	requisitos Varchar2 (50),
+	id_lugar Varchar2 (15),
+	no_acomp Number(2,0) NOT NULL ,
+primary key (id_evento),
+Constraint "CHK_EVENTO_STATUS" Check (status_evento IN ('ABIERTO', 'CANCELADO', 'CONCLUIDO', 'LLENO', 'CERRADO' )) 
+) 
+/
+
+Create table DEPARTAMENTO (
+	id_departamento Varchar2 (15) NOT NULL ,
+	nombre Varchar2 (15) NOT NULL ,
+primary key (id_departamento) 
+) 
+/
+
+Create table LUGAR (
+	id_lugar Varchar2 (15) NOT NULL ,
+	nombre Varchar2 (20) NOT NULL ,
+	direccion Varchar2 (70) NOT NULL ,
+	telefono Varchar2 (15),
+primary key (id_lugar) 
+) 
+/
+
+Create table REGISTRO_ACOMPANANTE (
+	id_registro_acomp Varchar2 (15) NOT NULL ,
+	no_acompanante Number NOT NULL ,
+	Id_registro Varchar2 (15) NOT NULL ,
+	id_evento Varchar2 (15) NOT NULL ,
+	fecha_registro Date NOT NULL ,
+	asistencia Varchar2 (2),
+	fecha_asistencia Date,
+	extras Varchar2 (50),
+	id_acompanante Varchar2 (15) NOT NULL ,
+primary key (id_registro_acomp,no_acompanante,id_acompanante) 
+) 
+/
+
+Create table ADMINISTRADOR (
+	id_administrador Varchar2 (15) NOT NULL ,
+	id_departamento Varchar2 (15) NOT NULL ,
+	nombre Varchar2 (30) NOT NULL ,
+	contrasena Varchar2 (30) NOT NULL ,
+	direccion Varchar2 (70) NOT NULL ,
+	telefono Varchar2 (15) NOT NULL ,
+	email Varchar2 (40) NOT NULL ,
+	fecha_nacimiento Date,
+	posicion Varchar2 (20),
+primary key (id_administrador,id_departamento) 
+) 
+/
+
+Create table GUARDIA (
+	id_guardia Varchar2 (15) NOT NULL ,
+	nombre Varchar2 (30) NOT NULL ,
+	contrasena Varchar2 (30) NOT NULL ,
+	direccion Varchar2 (70) NOT NULL ,
+	telefono Varchar2 (15) NOT NULL ,
+	email Varchar2 (40),
+primary key (id_guardia) 
+) 
+/
+
+Create table TUTOR (
+	id_tutor Varchar2 (15) NOT NULL ,
+	id_alumno Varchar2 (15) NOT NULL ,
+	nombre Varchar2 (30) NOT NULL ,
+	direccion Varchar2 (70) NOT NULL ,
+	telefono Varchar2 (15) NOT NULL ,
+	email Varchar2 (40) NOT NULL,
+	fecha_nacimiento Date,
+	parentezco Varchar2 (10) NOT NULL ,
+	id_escuela Varchar2 (15) NOT NULL ,
+primary key (id_tutor,id_alumno,id_escuela) 
+) 
+/
+
+Create table PONENTE (
+	id_ponente Varchar2 (15) NOT NULL ,
+	nombre Varchar2 (30) NOT NULL ,
+	direccion Varchar2 (70) NOT NULL ,
+	telefono Varchar2 (15) NOT NULL ,
+	email Varchar2 (40),
+primary key (id_ponente) 
+) 
+/
+
+Create table LISTA_PONENTES (
+	id_ponente Varchar2 (15) NOT NULL ,
+	id_evento Varchar2 (15) NOT NULL ,
+	id_lista_ponentes Varchar2 (15) NOT NULL ,
+primary key (id_lista_ponentes) 
+) 
+/
+
+Create table ACOMPANANTE (
+	id_acompanante Varchar2 (15) NOT NULL ,
+	nombre Varchar2 (30) NOT NULL ,
+	direccion Varchar2 (70) NOT NULL ,
+	telefono Varchar2 (15) NOT NULL ,
+	email Varchar2 (40) NOT NULL ,
+	fecha_nacimiento Date,
+primary key (id_acompanante) 
+) 
+/
+
+
+-- Create Foreign keys section
+
+Alter table TUTOR add  foreign key (id_alumno,id_escuela) references ALUMNO (id_alumno,id_escuela) 
+/
+
+Alter table REGISTRO_ALUMNO add  foreign key (id_alumno,id_escuela) references ALUMNO (id_alumno,id_escuela) 
+/
+
+Alter table REGISTRO_ACOMPANANTE add  foreign key (id_registro,id_evento) references REGISTRO_ALUMNO (id_registro,id_evento) 
+/
+
+Alter table ALUMNO add  foreign key (id_escuela) references ESCUELA (id_escuela) 
+/
+
+Alter table LISTA_PONENTES add  foreign key (id_evento) references EVENTO (id_evento) 
+/
+
+Alter table ADMINISTRADOR add  foreign key (id_departamento) references DEPARTAMENTO (id_departamento) 
+/
+
+Alter table EVENTO add  foreign key (id_lugar) references LUGAR (id_lugar) 
+/
+
+Alter table EVENTO add  foreign key (id_administrador,id_departamento) references ADMINISTRADOR (id_administrador,id_departamento) 
+/
+
+Alter table REGISTRO_ALUMNO add  foreign key (id_guardia) references GUARDIA (id_guardia) 
+/
+
+Alter table LISTA_PONENTES add  foreign key (id_ponente) references PONENTE (id_ponente) 
+/
+
+Alter table REGISTRO_ACOMPANANTE add  foreign key (id_acompanante) references ACOMPANANTE (id_acompanante) 
+/
+
+
+-- ADD BASIC DATA TO TABLES
+
+INSERT INTO escuela VALUES(seq_escuela.nextval, 'ITESM Campus Toluca', 'Eduardo Monroy Cárdenas 2000, San Antonio Buenavista, 50110', '01 722 279 9990');
+
+INSERT INTO departamento VALUES(seq_departamento.nextval, 'Ingenieria');
+
+INSERT INTO departamento VALUES(seq_departamento.nextval, 'Arquitectura');
+
+INSERT INTO departamento VALUES(seq_departamento.nextval, 'Derecho');
+
+--INSERT INTO alumno VALUES('Alu1100', 'Esteban', 'qwe', 'Super Cool Street 332', '722 659 5830', 'este_777@hotmail.com', TO_DATE('30-05-1997', 'dd/mm/YYYY'), 'ISC', 5, 1);
+
+--INSERT INTO alumno VALUES('Alu1101', 'Jimena', 'qwe', 'Super Cool Street 332', '722 345 5464', 'mail@hotmail.com', TO_DATE('21-07-1998', 'dd/mm/YYYY'), 'ISC', 3, 1);
+
+INSERT INTO administrador VALUES ('Adm1100', 1, 'Juan', 'qwe', 'Some Street 213, Toluca', '722 4859 263', 'mail@mail.com', TO_DATE('02-02-1985', 'dd/mm/YYYY'), 'Director');
+
+INSERT INTO administrador VALUES ('Adm1101', 2, 'María', 'qwe', 'Other Street 213, Toluca', '722 4729 249', 'mail2@mail.com', TO_DATE('25-08-1985', 'dd/mm/YYYY'), 'Directora');
+
+INSERT INTO administrador VALUES ('Adm1102', 3, 'Joaquín', 'qwe', 'Better Street 1389, Toluca', '722 4542 123', 'mail3@mail.com', TO_DATE('17-03-1965', 'dd/mm/YYYY'), 'Profesor');
+
+INSERT INTO LUGAR VALUES(seq_lugar.nextval,'AUDITORIO I','ITESM TOL', '722 987 6543');
+
+INSERT INTO evento (id_evento, id_administrador, id_departamento, nombre, fecha_inicio_evento, status_evento, capacidad_maxima, capacidad_actual, no_acomp) VALUES (seq_evento.nextval, 'Adm1100', 1, 'Evento1', TO_DATE('01-12-2017', 'dd/mm/YYYY'), 'ABIERTO', 15, 12, 2);
+
+INSERT INTO evento (id_evento, id_administrador, id_departamento, nombre, fecha_inicio_evento, status_evento, capacidad_maxima, capacidad_actual, no_acomp) VALUES (seq_evento.nextval, 'Adm1100', 1, 'Concurso', TO_DATE('05-12-2017', 'dd/mm/YYYY'), 'CANCELADO', 20, 5, 0);
+
+INSERT INTO evento (id_evento, id_administrador, id_departamento, nombre, fecha_inicio_evento, status_evento, capacidad_maxima, capacidad_actual, no_acomp) VALUES (seq_evento.nextval, 'Adm1101', 2, 'Muertec', TO_DATE('28-11-2017', 'dd/mm/YYYY'), 'CONCLUIDO', 35, 35, 3);
+
+INSERT INTO evento (id_evento, id_administrador, id_departamento, nombre, fecha_inicio_evento, status_evento, capacidad_maxima, capacidad_actual, no_acomp) VALUES (seq_evento.nextval, 'Adm1101', 2, 'Evento2', TO_DATE('25-12-2017', 'dd/mm/YYYY'), 'LLENO', 17,17,1);
+
+INSERT INTO evento (id_evento, id_administrador, id_departamento, nombre, fecha_inicio_evento, status_evento, capacidad_maxima, capacidad_actual, no_acomp) VALUES (seq_evento.nextval, 'Adm1102', 3, 'Rifa Año Nuevo', TO_DATE('30-12-2017', 'dd/mm/YYYY'), 'ABIERTO', 90,26,1);
+
+commit;

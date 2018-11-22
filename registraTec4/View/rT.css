@@ -1,0 +1,66 @@
+body
+{
+	font-family: Futura,"Trebuchet MS";
+    background-color:#5882FA;
+}
+
+h1
+{
+	font-family: "Georgia", serif; 
+	font-weight: bold;
+	font-size:45px;
+	color: #FFFFFF;
+	border-radius: 12px;
+	width: 100%;
+	padding: 10px;
+	text-align:center;
+}
+
+h2
+{
+	font-family: "Times New Roman", serif;
+	font-size: 30px;
+	color: #000000;
+	padding: 5px;
+	text-align:center;
+}
+
+h3
+{
+	font-family: "Times New Roman", serif;
+	font-size: 23px;
+	color: #000000;
+	text-align:center;
+}
+
+input
+{
+	font-family: Futura,"Trebuchet MS";
+	font-size: 20px;
+	border-radius:16px;
+	width: 300px;
+	height: 40px;
+	border-style: none;
+}
+
+td
+{
+	text-align: center;
+}
+
+.boton
+{
+	font-family: Futura,"Trebuchet MS";
+	font-size: 15px;
+	background: white;
+	border-radius:16px;
+	width: 230px;
+	height: 40px;
+}
+
+.boton:hover
+{
+	background:white;
+	color: #5882FA;
+	text-shadow: none;
+}
