@@ -1261,6 +1261,50 @@ public class AlumnoAD
     	return resultado;
     }
 
+	public String consultarTutor(String idTutor){
+		String datos="[";
+		String query;
+			ResultSet tr;
+
+			boolean encontrado=false;
+
+			query = "SELECT * FROM tutor WHERE id_tutor ="+idTutor;
+
+			try{
+					statement = conexion.createStatement();
+
+					tr = statement.executeQuery(query);
+					tr.next();
+					tutordp = new TutorDP();
+						tutordp.setNombre(tr.getString(3));
+						tutordp.setDireccion(tr.getString(4));
+						tutordp.setTelefono(tr.getString(5));
+						tutordp.setEmail(tr.getString(6));
+						tutordp.setParentezco(tr.getString(8));
+						tutordp.setIdEscuela(tr.getString(9));
+
+							datos = datos + tutordp.toStringJson();
+
+							encontrado = true;
+
+					statement.close();
+
+					datos += "]";
+
+					System.out.println(conexion.nativeSQL(query));
+			}catch(SQLException sqle){
+					datos = "ERROR";
+					System.out.println("Error: "+sqle);
+			}
+
+			if(!encontrado){
+					datos = "[{\"resultado\":\"No tienes ningun evento registrado\"},";
+		datos = datos.substring(0,datos.length()-1) + "]";
+	}
+
+		return datos;
+	}
+
 	public String registrarTutor(RegistroAlumnoDP registroalumnodp, TutorDP tutordp){
     	String resultado="";
     	String insert;

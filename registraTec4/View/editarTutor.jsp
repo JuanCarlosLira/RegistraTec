@@ -8,6 +8,55 @@ if(session.getAttribute("user") == null){
 	String nombreUsuario = (String)session.getAttribute("userName");
 %>
 
+<script type="text/javascript">
+  function consultarTutor(){
+    //PREPARAR URL STRING
+    var urlString =  "../Controller/tutor.jsp?bConsultarTutor=consultar&idTutor=<%= request.getParameter("idTutor") %>";
+    xhr = new XMLHttpRequest();
+    //ESTABLECER CONEXIÓN CON EL SERVER
+    establecerConexion2(urlString);
+  }
+
+  function establecerConexion2(urlString){
+		xhr.open("GET", urlString, true);
+		xhr.onreadystatechange = obtenerDatos2;
+		xhr.send(null);
+	}
+
+	function obtenerDatos2(){
+		if(xhr.readyState == 4){
+
+			var tutores = JSON.parse(xhr.responseText);
+			if(tutores.length > 0){
+        document.getElementById("nombre").value = tutores[0].nombre;
+        document.getElementById("direccion").value = tutores[0].direccion;
+        document.getElementById("telefono").value = tutores[0].telefono;
+        document.getElementById("mail").value = tutores[0].email;
+        document.getElementById("parentezco").value = tutores[0].parentezco;
+        document.getElementById("idescuela").value = tutores[0].idescuela;
+				/*var htmlText = htmlText + "<table class='striped' border = 1><thead><tr><th>ID</th><th>Nombre</th><th>Accion</th></tr><thead><tbody>";
+
+				for(i = 0; i<tutores.length; i++){
+					console.log(tutores);
+					htmlText += "<tr>";
+					htmlText += "<td>"+tutores[i].idtutor+"</td><td>"+tutores[i].nombre+"</td>";
+          htmlText += "<td><a href='../Controller/tutor.jsp?bBorrarTutor=borrar&idTutor="+tutores[i].idtutor+"'><button class='waves-effect  red darken-3 btn' >Borrar</button></a></td>";
+					htmlText += "<td><a href='../View/editarTutor.jsp?idTutor="+tutores[i].idtutor+"'><button class='waves-effect  blue darken-3 btn' >Editar</button></a></td>";
+					htmlText += "</tr>";
+				}
+				//alert();
+				htmlText += "</tbody></table>";
+				document.getElementById("resultado").innerHTML= htmlText;
+				//var htmlText2 = '<button type="button" onclick="agregarAcompanante('+tutores[i].idregistro+','+tutores[i].idevento+')" class="btn btn-primary" data-dismiss="modal">Agregar</button>';
+				//document.getElementById("botonAgregarAcompanante").innerHTML= htmlText2;*/
+			}else{
+				var htmlText = "<h5 class='center-align'>"+"..."+"</h5>";
+				document.getElementById("resultado").innerHTML= htmlText;
+			}
+		}
+	}
+</script>
+
 <html>
    <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,12 +68,11 @@ if(session.getAttribute("user") == null){
         <!--Scripts imported to manipulate the styles-->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-        <script type="text/javascript" src="js/functions.js"></script>
    </head>
    <body>
      <script>
              $(document).ready(function(){
-                 //consultarTutor();
+                 consultarTutor();
              })
     </script>
 

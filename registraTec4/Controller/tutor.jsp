@@ -33,6 +33,16 @@
     //%> <%=tutordp.toStringJson()%> <%
     alumnoad.actualizarTutor(tutordp);
     response.sendRedirect("../View/Tutor.jsp");
+  } else if (request.getParameter("bConsultarTutor") != null) {
+    String respuesta = alumnoad.consultarTutor(request.getParameter("idTutor"));
+
+    PrintWriter salida = response.getWriter();
+    response.setContentType("text/plain\n\n");
+    salida.println(respuesta);
+    salida.close();
+
+    System.out.println(respuesta);
+
   } else {
     response.sendRedirect("../View/Tutor.jsp");
   }
