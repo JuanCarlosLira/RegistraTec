@@ -8,6 +8,103 @@ if(session.getAttribute("user") == null){
 	String nombreUsuario = (String)session.getAttribute("userName");
 %>
 
+<script language = javascript>
+
+	var eventos;
+
+	function checkRegistration() {
+
+	var form = document.getElementById("formAcompanante");
+	var inputs = form.getElementsByTagName('input');
+		for (var i = 0; i < inputs.length; i++) {
+			if(inputs[i].value == ""){
+				return false;
+			}
+		}
+		return true;
+	}
+
+	function agregarAcompanante(idRegistro, idEvento){
+
+		if(checkRegistration()){
+			alert("id Registro: "+idRegistro+"\nid Evento: "+idEvento+"\nid Alumno: <%= usuario%>");
+
+			//PREPARAR URL STRING
+			//var urlString =  "../Controller/evento.jsp?bRegistrarAcompanante=agregar&idAlumno=<%= usuario%>&idEvento="+idEvento+"&idRegistro="+idRegistro+"";
+			//xhr = new XMLHttpRequest();
+			//ESTABLECER CONEXIÓN CON EL SERVER
+			//establecerConexion(urlString);
+
+		}else{
+			alert("Favor de llenar todos los datos...");
+		}
+	}
+
+	function establecerConexion(urlString){
+		xhr.open("GET", urlString, true);
+		xhr.onreadystatechange = obtenerDatos3;
+		xhr.send(null);
+	}
+
+	function obtenerDatos3(){
+		if(xhr.readyState == 4){
+
+			//var libros = eval("(" + xhr.responseText + ")");
+
+		}
+	}
+
+	function consultarMisEventos(){
+		//PREPARAR URL STRING
+		var urlString =  "../Controller/tutor.jsp?bConsultarMisTutores=consultar&idAlumno=<%= usuario%>";
+		xhr = new XMLHttpRequest();
+		//ESTABLECER CONEXIÓN CON EL SERVER
+		establecerConexion2(urlString);
+	}
+
+	function establecerConexion2(urlString){
+		xhr.open("GET", urlString, true);
+		xhr.onreadystatechange = obtenerDatos2;
+		xhr.send(null);
+	}
+
+	function obtenerDatos2(){
+		if(xhr.readyState == 4){
+
+			var tutores = JSON.parse(xhr.responseText);
+			if(tutores.length > 0){
+				var htmlText = htmlText + "<table class='striped' border = 1><thead><tr><th>ID</th><th>Nombre</th><th>Accion</th></tr><thead><tbody>";
+
+				for(i = 0; i<tutores.length; i++){
+					console.log(tutores);
+					htmlText += "<tr>";
+					htmlText += "<td>"+tutores[i].idtutor+"</td><td>"+tutores[i].nombre+"</td>";
+          htmlText += "<td><a href='../Controller/tutor.jsp?bBorrarTutor=borrar&idTutor="+tutores[i].idtutor+"'><button class='waves-effect  red darken-3 btn' >Borrar</button></a></td>";
+          //htmlText += "<td><a href='../Controller/evento.jsp?bAñadirAcompañante=Añadir&idEvento="+tutores[i].idevento+"&idRegistro="+tutores[i].idregistro+"'><button class='waves-effect  blue darken-3 btn' >Agregar_Acompanante</button></a></td>";
+					htmlText += "<td><button onclick='modifyButton("+i+")' data-toggle='modal' data-target='#exampleModal' id = 'add-acompanante' class='waves-effect  blue darken-3 btn'>Eitar</button></td>";
+					htmlText += "</tr>";
+				}
+				//alert();
+				htmlText += "</tbody></table>";
+				document.getElementById("resultado").innerHTML= htmlText;
+				//var htmlText2 = '<button type="button" onclick="agregarAcompanante('+tutores[i].idregistro+','+tutores[i].idevento+')" class="btn btn-primary" data-dismiss="modal">Agregar</button>';
+				//document.getElementById("botonAgregarAcompanante").innerHTML= htmlText2;
+			}else{
+				var htmlText = "<h5 class='center-align'>"+"..."+"</h5>";
+				document.getElementById("resultado").innerHTML= htmlText;
+			}
+		}
+	}
+
+	function modifyButton(i){
+		//var htmlText2 = '<button type="button" onclick="agregarAcompanante('+eventos[i].idregistro+','+eventos[i].idevento+')" class="btn btn-primary" data-dismiss="modal">Agregar</button>';
+		//document.getElementById("botonAgregarAcompanante").innerHTML= htmlText2;
+		var htmlText2 = '<input type="hidden" id="idregistro" name="idregistro" type="text" class="validate" value="'+eventos[i].idregistro+'">';
+		htmlText2 += '<input type="hidden" id="idevento" name="idevento" type="text" class="validate" value="'+eventos[i].idevento+'">';
+		document.getElementById("hiddenFields").innerHTML= htmlText2
+	}
+</script>
+
 <html>
    <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -22,14 +119,12 @@ if(session.getAttribute("user") == null){
         <script type="text/javascript" src="js/functions.js"></script>
    </head>
    <body>
-    <script>
-            $(document).ready(function(){
-                $('select').material_select();
-                $(".button-collapse").sideNav();
-                $('.collapsible').collapsible();
-            })
-        </script>
-
+     <strong></strong>
+     <script>
+             $(document).ready(function(){
+                 consultarMisEventos();
+             })
+    </script>
 
 		<aside class="left-sidebar-nav">
             <ul id="slide-out" class="side-nav fixed leftside-navigations">
@@ -49,41 +144,18 @@ if(session.getAttribute("user") == null){
             <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
         </aside>
 
-
-		<div class="row">
+    <div class="row">
 			<div class="container">
 				<div class="col s6 push-s4">
-					<h1 class="center-align">RegistraTEC</h1>
-					<h3 class="center-align">Bienvenido <%= nombreUsuario%>!</h3>
+					<h2 class="center-align">RegistraTEC</h2>
+					<h5 class="center-align">Tutores:</h5>
 					</br>
-					<h4  class="center-align">Seccion de Noticias</h4>
-					<h5  class="center-align">En construccion...</h5>
-				</div>
-
-				<div class="col s6 push-s4">
+					</br>
+					<div id="resultado"></div>
 
 				</div>
-
-
-
 			</div>
 		</div>
-
-		<!--<form method = "post" action = "../Controller/registraTec.jsp">
-			<input type="submit" name="bCerrarSesion"   id="bCerrarSesion"    value="Salir" class="boton">
-		</form>
-		<form method="get">
-			<h3>Busca eventos disponibles: </h3>
-			<input type="text" name="busqueda"  id = "busqueda" value=""><br/>	<br/>
-   	   		<input type="button" name="bConsultarTodo"   id="bConsultarTodo"    value="Buscar todos" onclick="consultarTodo()" class="boton"> <br/><br/>
-			<input type="button" name="bConsultarNombre"   id="bConsultarNombre"    value="Buscar por Nombre" onclick = "consultarNombre()" class="boton"><br/><br/>
-			<input type="button" name="bConsultarId"   id="bConsultarId"    value="Buscar por Id" onclick = "consultarId()" class="boton">
-
-			<h3>Busca en tus eventos: </h3>
-			<input type="text" name="busqueda"  id = "busqueda" value=""><br/><br/>
-			<input type="button" name="bRegistrarme"   id="bRegistrarme"    value="Buscar mis eventos" onclick = "consultarMisEventos()" class="boton"><br/>
-		</form>
-		<div id="resultado"></div>-->
 	</body>
 </html>
 <%

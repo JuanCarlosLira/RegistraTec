@@ -311,6 +311,45 @@ public class AlumnoAD
     	return datos;
 	}
 
+	public String consultaTutores(String idAlumno){
+		String datos="[";
+    	String query;
+        ResultSet tr;
+
+        boolean encontrado=false;
+
+        query = "SELECT * FROM tutor WHERE id_alumno = '"+idAlumno+"'";
+
+        try{
+            statement = conexion.createStatement();
+
+            tr = statement.executeQuery(query);
+            tutordp = new TutorDP();
+            while(tr.next()){
+            	tutordp.setIdTutor(tr.getString(1));
+            	tutordp.setNombre(tr.getString(3));
+
+                datos = datos + tutordp.toStringJson() +",";
+
+                encontrado = true;
+            }
+
+            statement.close();
+
+            datos = datos.substring(0,datos.length()-1) + "]";
+            System.out.println(conexion.nativeSQL(query));
+        }catch(SQLException sqle){
+            datos = "ERROR";
+            System.out.println("Error: "+sqle);
+        }
+
+		 if(!encontrado){
+            datos = "[]";
+		}
+
+    	return datos;
+	}
+
 	public String consultarMisEventos(String idUsuario){
     	String datos="[";
     	String query;
@@ -905,6 +944,33 @@ public class AlumnoAD
         }
 
     	return resultado;
+	}
+
+	public String borrarTutor(String idtutor){
+		String respuesta="";
+		String delete="";
+
+		ResultSet tr;
+
+		delete = "DELETE FROM tutor WHERE id_tutor='"+idtutor+"'";
+
+		try{
+            statement = conexion.createStatement();
+
+           	statement.executeUpdate(delete);
+
+            statement.close();
+
+            System.out.println(conexion.nativeSQL(delete));
+            respuesta = "EXITO";
+
+            acciones++;
+        }catch(SQLException sqle){
+            System.out.println("Error: "+sqle);
+            respuesta = "ERROR";
+        }
+
+		return respuesta;
 	}
 
 	public String borrarRegistroEvento(String idevento, String idregistro){
