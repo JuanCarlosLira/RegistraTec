@@ -61,8 +61,8 @@ public class AlumnoAD
 			//CONEXION MYSQL
 			//SET CLASSPATH=C:\Users\Esteban\Desktop\mysql-connector-java-5.1.40\mysql-connector-java-5.1.40-bin.jar;.;%CLASSPATH%
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-            //conexion = DriverManager.getConnection("jdbc:mysql://localhost/registratec?user=root");
-						conexion = DriverManager.getConnection("jdbc:mysql://10.25.250.124:3306/registratec","root2","qwe");;
+            conexion = DriverManager.getConnection("jdbc:mysql://localhost/registratec?user=root");
+						//conexion = DriverManager.getConnection("jdbc:mysql://10.25.250.124:3306/registratec","root2","qwe");;
             System.out.println("Conexion exitosa a la BD registraTec en MySQL...");
 
 			//CONEXION ORACLE

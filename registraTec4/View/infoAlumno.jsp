@@ -9,7 +9,7 @@ if(session.getAttribute("user") == null){
 	String usuario = (String)session.getAttribute("user");
 	String nombreUsuario = (String)session.getAttribute("userName");
 %>
-<script language = javascript>	
+<script language = javascript>
 	function checkRegistration() {
 		var inputs = form.getElementsByTagName('input');
 		var valid = true;
@@ -18,9 +18,9 @@ if(session.getAttribute("user") == null){
 				alert("Favor de llenar todos los campos...");
 				valid = false
 				break;
-			}       
-		}		
-		return valid; 		
+			}
+		}
+		return valid;
 	}
 
 	function consultarMiInfo(){
@@ -30,22 +30,22 @@ if(session.getAttribute("user") == null){
 		//ESTABLECER CONEXIÓN CON EL SERVER
 		establecerConexion(urlString);
 	}
-	
+
 	function establecerConexion(urlString){
 		xhr.open("GET", urlString, true);
 		xhr.onreadystatechange = obtenerDatos;
 		xhr.send(null);
 	}
-	
-	function obtenerDatos(){	
+
+	function obtenerDatos(){
 		if(xhr.readyState == 4){
-			
+
 			//var libros = eval("(" + xhr.responseText + ")");
 			var alumno = JSON.parse(xhr.responseText);
 			if(alumno[0].resultado == null){
 				i=0;
 				var htmlText = htmlText + "<table class='striped' border = 1>";
-				
+
 				htmlText += "<tr>";
 				htmlText += "<td>NOMBRE: </td><td><input type='text' name='nombre' value='"+alumno[i].nombre+"' readonly></input></td>";
 				htmlText += "</tr>";
@@ -86,7 +86,7 @@ if(session.getAttribute("user") == null){
 		}
 	}
 </script>
-		
+
 <html>
    <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -104,31 +104,32 @@ if(session.getAttribute("user") == null){
    <body onload = "consultarMiInfo()">
     <script>
             $(document).ready(function(){
-                $('select').material_select();     
+                $('select').material_select();
                 $(".button-collapse").sideNav();
                 $('.collapsible').collapsible();
             })
 	</script>
-	
-		
+
+
 		<aside class="left-sidebar-nav">
             <ul id="slide-out" class="side-nav fixed leftside-navigations">
                 <li class="user-details blue darken-2"><div>
                     <div class="">
-                        <img src="images/tec.jpg" class="ico">
+                        <img src="../images/tec.jpg" class="ico">
                     </div>
                     <a href="infoAlumno.jsp"><span class="blue darken-2"><h4><%= nombreUsuario%></h4></span></a>
                 </div></li>
                 <li><a href="menuAlumno2.jsp">Inicio</a></li>
-               
-                <li class="bold"><a href="Eventos.jsp" class="">Eventos Disponibles</a></li>   
-                <li class="bold"><a href="misEventos.jsp" class="">Mis Eventos</a></li>   
-                <li class="bold"><a href="../Controller/registraTec.jsp?bCerrarSesion=salir" class="">Cerrar Sesion</a></li>     
+
+                <li class="bold"><a href="Eventos.jsp" class="">Eventos Disponibles</a></li>
+                <li class="bold"><a href="misEventos.jsp" class="">Mis Eventos</a></li>
+								<li class="bold"><a href="Tutor.jsp" class="">Tutores</a></li>
+                <li class="bold"><a href="../Controller/registraTec.jsp?bCerrarSesion=salir" class="">Cerrar Sesion</a></li>
             </ul>
             <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
         </aside>
-		
-		
+
+
 		<div class="row">
 			<div class="container">
 				<div class="col s6 push-s4">
@@ -147,4 +148,4 @@ if(session.getAttribute("user") == null){
 </html>
 <%
 }
-%> 
+%>

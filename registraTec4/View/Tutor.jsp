@@ -1,6 +1,5 @@
 <%@ page import = "java.io.PrintWriter"%>
 
-
 <%
 if(session.getAttribute("user") == null){
 	response.sendRedirect("../registraTec.html");
@@ -44,7 +43,7 @@ if(session.getAttribute("user") == null){
 
                 <li class="bold"><a href="Eventos.jsp" class="">Eventos Disponibles</a></li>
                 <li class="bold"><a href="misEventos.jsp" class="">Mis Eventos</a></li>
-								<li class="bold"><a href="Tutor.jsp" class="">Tutores</a></li>
+                <li class="bold"><a href="Tutor.jsp" class="">Tutores</a></li>
                 <li class="bold"><a href="../Controller/registraTec.jsp?bCerrarSesion=salir" class="">Cerrar Sesion</a></li>
             </ul>
             <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>

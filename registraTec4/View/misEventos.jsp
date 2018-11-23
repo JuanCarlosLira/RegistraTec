@@ -8,23 +8,23 @@ if(session.getAttribute("user") == null){
 	String nombreUsuario = (String)session.getAttribute("userName");
 %>
 <script language = javascript>
- 
+
 	var eventos;
 
 	function checkRegistration() {
-		
+
 	var form = document.getElementById("formAcompanante");
 	var inputs = form.getElementsByTagName('input');
 		for (var i = 0; i < inputs.length; i++) {
 			if(inputs[i].value == ""){
-				return false;    
+				return false;
 			}
-		}		
-		return true; 		
+		}
+		return true;
 	}
-	
+
 	function agregarAcompanante(idRegistro, idEvento){
-		
+
 		if(checkRegistration()){
 			alert("id Registro: "+idRegistro+"\nid Evento: "+idEvento+"\nid Alumno: <%= usuario%>");
 
@@ -45,11 +45,11 @@ if(session.getAttribute("user") == null){
 		xhr.send(null);
 	}
 
-	function obtenerDatos3(){	
+	function obtenerDatos3(){
 		if(xhr.readyState == 4){
-			
+
 			//var libros = eval("(" + xhr.responseText + ")");
-			
+
 		}
 	}
 
@@ -60,21 +60,21 @@ if(session.getAttribute("user") == null){
 		//ESTABLECER CONEXIÓN CON EL SERVER
 		establecerConexion2(urlString);
 	}
-	
+
 	function establecerConexion2(urlString){
 		xhr.open("GET", urlString, true);
 		xhr.onreadystatechange = obtenerDatos2;
 		xhr.send(null);
 	}
-	
-	function obtenerDatos2(){	
+
+	function obtenerDatos2(){
 		if(xhr.readyState == 4){
-			
+
 			//var libros = eval("(" + xhr.responseText + ")");
 			eventos = JSON.parse(xhr.responseText);
 			if(eventos[0].resultado == null){
 				var htmlText = htmlText + "<table class='striped' border = 1><thead><tr><th>ID</th><th>Nombre</th><th>Fecha</th><th>Accion</th></tr><thead><tbody>";
-				
+
 				for(i = 0; i<eventos.length; i++){
 					console.log(eventos);
 					htmlText += "<tr>";
@@ -117,7 +117,7 @@ if(session.getAttribute("user") == null){
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 		<!--<script type="text/javascript" src="js/functions.js"></script>-->
-		
+
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
@@ -129,31 +129,32 @@ if(session.getAttribute("user") == null){
    <body onload = "consultarMisEventos()">
     <script>
             $(document).ready(function(){
-               // $('select').material_select();     
+               // $('select').material_select();
                // $(".button-collapse").sideNav();
                // $('.collapsible').collapsible();
                 consultarMisEventos();
             })
         </script>
-		
-		
+
+
 		<aside class="left-sidebar-nav">
             <ul id="slide-out" class="side-nav fixed leftside-navigations">
                 <li class="user-details blue darken-2"><div>
-                    <div class="">
-                       <!-- <img src="images/tec.jpg" class="ico">-->
-                    </div>
+										<div class="">
+												<img src="../images/tec.jpg" class="ico">
+										</div>
                     <a href="infoAlumno.jsp"><span class="blue darken-2"><h4><%= nombreUsuario%></h4></span></a>
                 </div></li>
                 <li><a href="menuAlumno2.jsp">Inicio</a></li>
-               
-                <li class="bold"><a  href="Eventos.jsp" class="">Eventos Disponibles</a></li>   
-                <li class="bold"><a href="misEventos.jsp" class="">Mis Eventos</a></li>   
-                <li class="bold"><a href="../Controller/registraTec.jsp?bCerrarSesion=salir" class="">Cerrar Sesion</a></li>     
+
+                <li class="bold"><a  href="Eventos.jsp" class="">Eventos Disponibles</a></li>
+                <li class="bold"><a href="misEventos.jsp" class="">Mis Eventos</a></li>
+								<li class="bold"><a href="Tutor.jsp" class="">Tutores</a></li>
+                <li class="bold"><a href="../Controller/registraTec.jsp?bCerrarSesion=salir" class="">Cerrar Sesion</a></li>
             </ul>
             <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
         </aside>
-		
+
 		<div class="row">
 			<div class="container">
 				<div class="col s6 push-s4">
@@ -162,7 +163,7 @@ if(session.getAttribute("user") == null){
 					</br>
 					</br>
 					<div id="resultado"></div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -171,18 +172,18 @@ if(session.getAttribute("user") == null){
 		</form>
 		<form method="get">
 			<h3>Busca eventos disponibles: </h3>
-			<input type="text" name="busqueda"  id = "busqueda" value=""><br/>	<br/>					
+			<input type="text" name="busqueda"  id = "busqueda" value=""><br/>	<br/>
    	   		<input type="button" name="bConsultarTodo"   id="bConsultarTodo"    value="Buscar todos" onclick="consultarTodo()" class="boton"> <br/><br/>
 			<input type="button" name="bConsultarNombre"   id="bConsultarNombre"    value="Buscar por Nombre" onclick = "consultarNombre()" class="boton"><br/><br/>
 			<input type="button" name="bConsultarId"   id="bConsultarId"    value="Buscar por Id" onclick = "consultarId()" class="boton">
-			
+
 			<h3>Busca en tus eventos: </h3>
 			<input type="text" name="busqueda"  id = "busqueda" value=""><br/><br/>
 			<input type="button" name="bRegistrarme"   id="bRegistrarme"    value="Buscar mis eventos" onclick = "consultarMisEventos()" class="boton"><br/>
 		</form>
 		<div id="resultado"></div>-->
 
-		
+
 
 		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
@@ -226,7 +227,7 @@ if(session.getAttribute("user") == null){
 							</div>
 							<input type="submit" name="bRegistrarAcompanante" id="bRegistrarAcompanante" value="submit" class="btn btn-primary" values="Agregar acompanante">
 						</div>
-						
+
 					</form>
 				</div>
 			</div>
@@ -237,4 +238,4 @@ if(session.getAttribute("user") == null){
 </html>
 <%
 }
-%> 
+%>

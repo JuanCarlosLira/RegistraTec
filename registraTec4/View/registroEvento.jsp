@@ -1,7 +1,7 @@
 
 <%
 if(session.getAttribute("user") == null){
-	response.sendRedirect("../registraTec.html");		
+	response.sendRedirect("../registraTec.html");
 }else{
 	String usuario = (String)session.getAttribute("user");
 	String nombreUsuario = (String)session.getAttribute("userName");
@@ -9,7 +9,7 @@ if(session.getAttribute("user") == null){
 %>
 <script language = javascript>
 	var counterAcomp = 0;
-	
+
 	function checkRegistration() {
 	var inputs = form.getElementsByTagName('input');
 	var valid = true;
@@ -18,13 +18,13 @@ if(session.getAttribute("user") == null){
 				alert("Favor de llenar todos los datos...");
 				valid = false
 				break;
-			}       
-		}		
-		return valid; 		
+			}
+		}
+		return valid;
 	}
 
 	function agregarCamposAcompanante(noAcomp){
-		
+
 		counterAcomp++;
 		if(counterAcomp == 1){
 			var divAc = document.getElementById("acompanantes");
@@ -38,7 +38,7 @@ if(session.getAttribute("user") == null){
 			}
 		}
 	}
-	
+
 	function quitarCamposAcompanante(){
 		var div = document.getElementById("acompanantes");
 		var div2 = "acompanante"+counterAcomp;
@@ -49,10 +49,10 @@ if(session.getAttribute("user") == null){
 		if(counterAcomp == 0){
 			var button = document.getElementById("button");
 			button.removeChild(document.getElementById("bQuitarAcompanante"));
-			
+
 		}
 	}
-	
+
 	function consultarEvento(idEvento){
 		//PREPARAR URL STRING
 		var urlString =  "../Controller/evento.jsp?bConsultarIdFull=consultar&id="+idEvento;
@@ -60,16 +60,16 @@ if(session.getAttribute("user") == null){
 		//ESTABLECER CONEXIÓN CON EL SERVER
 		establecerConexion(urlString);
 	}
-	
+
 	function establecerConexion(urlString){
 		xhr.open("GET", urlString, true);
 		xhr.onreadystatechange = obtenerDatos;
 		xhr.send(null);
 	}
-	
-	function obtenerDatos(){	
+
+	function obtenerDatos(){
 		if(xhr.readyState == 4){
-			
+
 			//var libros = eval("(" + xhr.responseText + ")");
 			var eventos = JSON.parse(xhr.responseText);
 			if(eventos[0].resultado == null){
@@ -92,7 +92,7 @@ if(session.getAttribute("user") == null){
 			}
 		}
 	}
-	
+
 </script>
 <html>
   <head>
@@ -109,24 +109,25 @@ if(session.getAttribute("user") == null){
         <script type="text/javascript" src="js/functions.js"></script>
    </head>
    <body onload = "consultarEvento('<%= idEvento%>')">
-   
+
    <aside class="left-sidebar-nav">
         <ul id="slide-out" class="side-nav fixed leftside-navigations">
             <li class="user-details blue darken-2"><div>
                 <div class="">
-                    <img src="images/tec.jpg" class="ico">
+                    <img src="../images/tec.jpg" class="ico">
                 </div>
                 <a href="infoAlumno.jsp"><span class="blue darken-2"><h4><%= nombreUsuario%></h4></span></a>
             </div></li>
             <li><a href="menuAlumno2.jsp">home</i>Inicio</a></li>
-           
-            <li class="bold"><a  href="Eventos.jsp" class="">Eventos Disponibles</a></li>   
-            <li class="bold"><a href="misEventos.jsp" class="">Mis Eventos</a></li>   
-            <li class="bold"><a href="../Controller/registraTec.jsp?bCerrarSesion=salir" class="">Cerrar Sesion</a></li>     
+
+            <li class="bold"><a  href="Eventos.jsp" class="">Eventos Disponibles</a></li>
+            <li class="bold"><a href="misEventos.jsp" class="">Mis Eventos</a></li>
+						<li class="bold"><a href="Tutor.jsp" class="">Tutores</a></li>
+            <li class="bold"><a href="../Controller/registraTec.jsp?bCerrarSesion=salir" class="">Cerrar Sesion</a></li>
         </ul>
         <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
     </aside>
-	
+
 		<div class="row">
 			<div class="container">
 				<div class="col s6 push-s4">
@@ -134,7 +135,7 @@ if(session.getAttribute("user") == null){
 					</br>
 					</br>
 					<div id="resultado"></div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -143,7 +144,7 @@ if(session.getAttribute("user") == null){
 <%
 		if(request.getParameter("bRegistrarAlumnoSistema") != null){
 			//String respuesta = alumnoad.registrarAlumnoEvento(registrodp);
-	
+
 
 		}
 	}

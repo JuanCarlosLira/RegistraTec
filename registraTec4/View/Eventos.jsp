@@ -7,12 +7,12 @@ if(session.getAttribute("user") == null){
 	String usuario = (String)session.getAttribute("user");
 	String nombreUsuario = (String)session.getAttribute("userName");
 %>
-<script language = javascript>	
+<script language = javascript>
 	function consultar(){
 		//OBTENER VALOR SELECT
 		var e = document.getElementById("tipo");
 		var strUser = e.options[e.selectedIndex].text;
-		
+
 		if(strUser == "Buscar Todos")
 			consultarTodo();
 		else if(strUser == "Buscar ID")
@@ -28,7 +28,7 @@ if(session.getAttribute("user") == null){
 		//ESTABLECER CONEXIÓN CON EL SERVER
 		establecerConexion(urlString);
 	}
-	
+
 	function consultarMisEventos(){
 		//PREPARAR URL STRING
 		var urlString =  "../Controller/evento.jsp?bConsultarMisEventos=consultar&idAlumno=<%= usuario%>";
@@ -36,7 +36,7 @@ if(session.getAttribute("user") == null){
 		//ESTABLECER CONEXIÓN CON EL SERVER
 		establecerConexion2(urlString);
 	}
-	
+
 	function consultarNombre(){
 		//OBTENER EDITORIAL DEL TF
 		var nombre = document.getElementById("busqueda").value
@@ -49,9 +49,9 @@ if(session.getAttribute("user") == null){
 			xhr = new XMLHttpRequest();
 			//ESTABLECER CONEXIÓN CON EL SERVER
 			establecerConexion(urlString);
-		}			
+		}
 	}
-	
+
 	function consultarId(){
 		//OBTENER EDITORIAL DEL TF
 		var id = document.getElementById("busqueda").value
@@ -64,23 +64,23 @@ if(session.getAttribute("user") == null){
 			xhr = new XMLHttpRequest();
 			//ESTABLECER CONEXIÓN CON EL SERVER
 			establecerConexion(urlString);
-		}			
+		}
 	}
-	
+
 	function establecerConexion(urlString){
 		xhr.open("GET", urlString, true);
 		xhr.onreadystatechange = obtenerDatos;
 		xhr.send(null);
 	}
-	
-	function obtenerDatos(){	
+
+	function obtenerDatos(){
 		if(xhr.readyState == 4){
-			
+
 			//var libros = eval("(" + xhr.responseText + ")");
 			var eventos = JSON.parse(xhr.responseText);
 			if(eventos[0].resultado == null){
 				var htmlText = "<table class='striped' border = 1><thead><tr><th>ID</th><th>Nombre</th><th>Departamento</th><th>Fecha</th><th>Status</th><th>Accion</th></tr><thead><tbody>";
-				
+
 				for(i = 0; i<eventos.length; i++){
 					htmlText = htmlText + "<tr>";
 					htmlText = htmlText + "<td><a href='infoEvento.jsp?eventoId="+eventos[i].idevent+"'>"+eventos[i].idevent+"</a></td><td>"+eventos[i].nombre+"</td><td>"+eventos[i].nombreDepto+"</td><td>"+eventos[i].dateini+"</td><td>"+eventos[i].status+"</td>";
@@ -117,37 +117,38 @@ if(session.getAttribute("user") == null){
    <body>
     <script>
             $(document).ready(function(){
-                $('select').material_select();     
+                $('select').material_select();
                 $(".button-collapse").sideNav();
                 $('.collapsible').collapsible();
                 mostrarEventos();
             })
         </script>
-		
-		
+
+
 		<aside class="left-sidebar-nav">
             <ul id="slide-out" class="side-nav fixed leftside-navigations">
                 <li class="user-details blue darken-2"><div>
                     <div class="">
-                        <img src="images/tec.jpg" class="ico">
+                        <img src="../images/tec.jpg" class="ico">
                     </div>
                     <a href="infoAlumno.jsp"><span class="blue darken-2"><h4><%= nombreUsuario%></h4></span></a>
                 </div></li>
                 <li><a href="menuAlumno2.jsp">Inicio</a></li>
-               
-                <li class="bold"><a  href="Eventos.jsp" class="">Eventos Disponibles</a></li>   
-                <li class="bold"><a href="misEventos.jsp" class="">Mis Eventos</a></li>   
-                <li class="bold"><a href="../Controller/registraTec.jsp?bCerrarSesion=salir" class="">Cerrar Sesion</a></li>     
+
+                <li class="bold"><a  href="Eventos.jsp" class="">Eventos Disponibles</a></li>
+                <li class="bold"><a href="misEventos.jsp" class="">Mis Eventos</a></li>
+								<li class="bold"><a href="Tutor.jsp" class="">Tutores</a></li>
+                <li class="bold"><a href="../Controller/registraTec.jsp?bCerrarSesion=salir" class="">Cerrar Sesion</a></li>
             </ul>
             <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
         </aside>
-		
+
 		<div class="row">
 			<div class="container">
 				<div class="col s6 push-s4">
 					<h2 class="center-align">RegistraTEC</h2>
 					<h5 class="center-align">Busca eventos disponibles:</h5>
-					
+
 					<input placeholder="Busqueda..." name = "busqueda" id="busqueda" type="text">
 					<select id = "tipo">
 						<option value="1" >Buscar Todos</option>
@@ -157,11 +158,11 @@ if(session.getAttribute("user") == null){
 					<center>
 						<button class="waves-effect blue darken-2 btn" name="bConsultarId"   id="bConsultarId" onclick = "consultar()">Buscar</button>
 					</center>
-					
+
 					</br>
 					</br>
 					<div id="resultado"></div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -169,4 +170,4 @@ if(session.getAttribute("user") == null){
 </html>
 <%
 }
-%> 
+%>

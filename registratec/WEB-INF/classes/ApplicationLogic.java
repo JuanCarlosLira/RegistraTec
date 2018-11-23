@@ -37,8 +37,8 @@ public class ApplicationLogic{
     public ApplicationLogic() {
     	try{
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-            //conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/registratec","root","");
-            conexion = DriverManager.getConnection("jdbc:mysql://10.25.250.124:3306/registratec","root2","qwe");
+            conexion = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/registratec","root","");
+            //conexion = DriverManager.getConnection("jdbc:mysql://10.25.250.124:3306/registratec","root2","qwe");
             System.out.println("Conexion exitosa a la BD en MySQL...");
 			System.out.println("Conexion exitosa a la BD registraTec en ORACLE SQL...(AutoCommit disabled)");
         }
