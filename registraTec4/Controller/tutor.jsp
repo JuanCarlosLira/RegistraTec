@@ -18,6 +18,7 @@
   } else if (request.getParameter("bBorrarTutor") != null){
     String idTutor = request.getParameter("idTutor");
     alumnoad.borrarTutor(idTutor);
+    alumnoad.cerrarConexion();
     response.sendRedirect("../View/Tutor.jsp");
   } else if (request.getParameter("update") != null){
     // Update Data
@@ -32,9 +33,11 @@
     tutordp.setIdEscuela(request.getParameter("idescuela"));
     //%> <%=tutordp.toStringJson()%> <%
     alumnoad.actualizarTutor(tutordp);
+    alumnoad.cerrarConexion();
     response.sendRedirect("../View/Tutor.jsp");
   } else if (request.getParameter("bConsultarTutor") != null) {
     String respuesta = alumnoad.consultarTutor(request.getParameter("idTutor"));
+    alumnoad.cerrarConexion();
 
     PrintWriter salida = response.getWriter();
     response.setContentType("text/plain\n\n");
@@ -43,6 +46,19 @@
 
     System.out.println(respuesta);
 
+  } else if (request.getParameter("insert") != null) {
+    // Insert Data
+    tutordp.setIdAlumno(request.getParameter("idalumno"));
+    tutordp.setNombre(request.getParameter("nombre"));
+    tutordp.setDireccion(request.getParameter("direccion"));
+    tutordp.setTelefono(request.getParameter("telefono"));
+    tutordp.setEmail(request.getParameter("mail"));
+    tutordp.setParentezco(request.getParameter("parentezco"));
+    tutordp.setIdEscuela(request.getParameter("idescuela"));
+    alumnoad.crearTutor(tutordp);
+    alumnoad.cerrarConexion();
+    response.sendRedirect("../View/Tutor.jsp");
+    //%> <%=tutordp.toStringJson()%><%
   } else {
     response.sendRedirect("../View/Tutor.jsp");
   }

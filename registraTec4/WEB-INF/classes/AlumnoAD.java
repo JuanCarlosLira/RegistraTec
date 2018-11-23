@@ -1305,6 +1305,33 @@ public class AlumnoAD
 		return datos;
 	}
 
+	public String crearTutor(TutorDP tutordp){
+		String resultado="";
+		String insert;
+
+		insert = "INSERT INTO TUTOR VALUES(NULL, '"+tutordp.getIdAlumno()+"','"+tutordp.getNombre()+"','"+tutordp.getDireccion()+"','"+tutordp.getTelefono()+"','"+tutordp.getEmail()+"',NULL, '"+tutordp.getParentezco()+"',"+tutordp.getIdEscuela()+")";
+
+		System.out.println(insert);
+		ResultSet tr;
+
+		try{
+						statement = conexion.createStatement();
+
+						statement.executeUpdate(insert);
+
+						statement.close();
+
+						System.out.println(conexion.nativeSQL(insert));
+
+						resultado = "CAPTURA EXITOSA";
+				}catch(SQLException sqle){
+						System.out.println("Error: "+sqle);
+						resultado = "CAPTURA FALLIDA TUTOR";
+				}
+
+			return resultado;
+	}
+
 	public String registrarTutor(RegistroAlumnoDP registroalumnodp, TutorDP tutordp){
     	String resultado="";
     	String insert;

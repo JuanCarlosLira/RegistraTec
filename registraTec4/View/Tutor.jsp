@@ -115,7 +115,6 @@ if(session.getAttribute("user") == null){
         <!--Scripts imported to manipulate the styles-->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-        <script type="text/javascript" src="js/functions.js"></script>
    </head>
    <body>
      <strong></strong>
@@ -151,6 +150,10 @@ if(session.getAttribute("user") == null){
 					</br>
 					</br>
 					<div id="resultado"></div>
+
+          <br>
+          <center> </center>
+          <a href='../View/crearTutor.jsp?'><button class='waves-effect  blue darken-3 btn' >Nuevo</button></a>
 
 				</div>
 			</div>
