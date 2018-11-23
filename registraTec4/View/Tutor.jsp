@@ -80,8 +80,7 @@ if(session.getAttribute("user") == null){
 					htmlText += "<tr>";
 					htmlText += "<td>"+tutores[i].idtutor+"</td><td>"+tutores[i].nombre+"</td>";
           htmlText += "<td><a href='../Controller/tutor.jsp?bBorrarTutor=borrar&idTutor="+tutores[i].idtutor+"'><button class='waves-effect  red darken-3 btn' >Borrar</button></a></td>";
-          //htmlText += "<td><a href='../Controller/evento.jsp?bAñadirAcompañante=Añadir&idEvento="+tutores[i].idevento+"&idRegistro="+tutores[i].idregistro+"'><button class='waves-effect  blue darken-3 btn' >Agregar_Acompanante</button></a></td>";
-					htmlText += "<td><button onclick='modifyButton("+i+")' data-toggle='modal' data-target='#exampleModal' id = 'add-acompanante' class='waves-effect  blue darken-3 btn'>Eitar</button></td>";
+					htmlText += "<td><a href='../View/editarTutor.jsp?idTutor="+tutores[i].idtutor+"'><button class='waves-effect  blue darken-3 btn' >Editar</button></a></td>";
 					htmlText += "</tr>";
 				}
 				//alert();

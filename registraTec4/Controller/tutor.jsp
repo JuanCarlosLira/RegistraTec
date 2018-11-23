@@ -1,5 +1,5 @@
 <%@ page import = "java.io.PrintWriter"%>
-<jsp:useBean id="registrodp" class="modelRegistraTec.TutorDP"/>
+<jsp:useBean id="tutordp" class="modelRegistraTec.TutorDP"/>
 <jsp:useBean id="alumnoad" class="modelRegistraTec.AlumnoAD"/>
 
 <%
@@ -18,6 +18,20 @@
   } else if (request.getParameter("bBorrarTutor") != null){
     String idTutor = request.getParameter("idTutor");
     alumnoad.borrarTutor(idTutor);
+    response.sendRedirect("../View/Tutor.jsp");
+  } else if (request.getParameter("update") != null){
+    // Update Data
+    //TutorDP tut = new TutorDP();
+    tutordp.setIdTutor(request.getParameter("idtutor"));
+    tutordp.setIdAlumno(request.getParameter("idalumno"));
+    tutordp.setNombre(request.getParameter("nombre"));
+    tutordp.setDireccion(request.getParameter("direccion"));
+    tutordp.setTelefono(request.getParameter("telefono"));
+    tutordp.setEmail(request.getParameter("mail"));
+    tutordp.setParentezco(request.getParameter("parentezco"));
+    tutordp.setIdEscuela(request.getParameter("idescuela"));
+    //%> <%=tutordp.toStringJson()%> <%
+    alumnoad.actualizarTutor(tutordp);
     response.sendRedirect("../View/Tutor.jsp");
   } else {
     response.sendRedirect("../View/Tutor.jsp");

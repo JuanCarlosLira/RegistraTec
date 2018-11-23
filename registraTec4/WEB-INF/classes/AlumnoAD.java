@@ -1290,6 +1290,32 @@ public class AlumnoAD
     	return resultado;
     }
 
+	public String actualizarTutor(TutorDP tut){
+		String resultado="";
+    String update;
+
+		update = "UPDATE tutor SET nombre = '"+tut.getNombre()+"', direccion='"+tut.getDireccion()+"', telefono='"+tut.getTelefono()+"', email='"+tut.getEmail()+"', parentezco='"+tut.getParentezco()+"', id_escuela="+tut.getIdEscuela()+" WHERE id_tutor = '"+tut.IdTutor()+"'";
+
+		ResultSet tr;
+
+		try{
+            statement = conexion.createStatement();
+
+           	statement.executeUpdate(update);
+
+            statement.close();
+
+            System.out.println(conexion.nativeSQL(update));
+
+            resultado = "EXITO";
+        }catch(SQLException sqle){
+            System.out.println("Error: "+sqle);
+            resultado = "ERROR";
+        }
+
+    	return resultado;
+	}
+
 	public String actualizarEstadoEvento(String idEvento){
 		String resultado="";
     	String insert;
