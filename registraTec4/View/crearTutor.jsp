@@ -45,7 +45,7 @@ if(session.getAttribute("user") == null){
 				<div class="col s6 push-s4">
 					<h2 class="center-align">RegistraTEC</h2>
 
-          <form action="../Controller/tutor.jsp" method="post">
+          <form action="../Controller/tutor.jsp" method="get">
             <input placeholder="ID Alumno" name = "idalumno" id="idalumno" type="text" value="<%=usuario%>" readonly>
             <input placeholder="Nombre" name = "nombre" id="nombre" type="text">
             <input placeholder="Direccion" name = "direccion" id="direccion" type="text">
